@@ -45,7 +45,7 @@ export default function Login () {
             <ShopLogo>Coffee Shop</ShopLogo>
             <InputsContainer>
                 <Input type={'text'} placeholder={'Email'} value={email} onChange={(e) => setEmail(e.target.value)}/>
-                <Input type={'passord'} placeholder={'Senha'} value={password} onChange={(e) => setPassword(e.target.value)}/>
+                <Input type={'password'} placeholder={'Senha'} value={password} onChange={(e) => setPassword(e.target.value)}/>
             </InputsContainer>
             <Button onClick={loginUser}>
                 {loading ? (<LoadingSpin primaryColor={'#FFFFFF'} secondaryColor={'transparent'} size={'35px'} width={8} />
