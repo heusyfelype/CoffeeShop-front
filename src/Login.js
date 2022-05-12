@@ -27,7 +27,8 @@ export default function Login () {
         promise.then (response => {
             setLoading(false);
             const { data } = response;
-            console.log(data);
+            const info = {token: data.token, id: data.userId};
+            const userInfo = localStorage.setItem('token_ID', JSON.stringify(info));
             navigate('/welcome-page');
         })
 
