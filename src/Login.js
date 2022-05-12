@@ -19,7 +19,7 @@ export default function Login () {
 
         setLoading(true);
 
-        const promise = axios.post('locahost:5000/login', {
+        const promise = axios.post('http://localhost:5000/login', {
             email,
             password
         })
