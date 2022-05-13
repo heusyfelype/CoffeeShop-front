@@ -63,9 +63,9 @@ export default function Login () {
 
 const LoginContainer = styled.div`
 
+    padding: 10vh 10vw;
     height: 100vh;
-    width: 340px;
-    padding: 25px;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,7 +84,8 @@ const StyledLink = styled(Link)`
     align-items: center;
     flex-direction: column;
     font-family: 'Roboto', sans-serif;
-    color: #FFFFFF;
+    text-decoration: none;
+    color: #EADDCA;
     z-index: 1;
 
 `;
@@ -92,15 +93,15 @@ const StyledLink = styled(Link)`
 const ShopLogo = styled.div`
 
     font-family: Noto Serif Display, sans-serif;
+    font-weight: 700;
     font-size: 40px;
     color: #EADDCA;
     z-index: 1;
-
 `;
 
 const InputsContainer = styled.div`
 
-    margin-top: 350px;
+    margin-top: 40vh;
     background-color: transparent;
     z-index: 1;
 
