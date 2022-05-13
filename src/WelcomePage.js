@@ -47,7 +47,9 @@ export default function WelcomePage () {
 
         <WelcomeStyled>
             <Header />
-            <Product />
+            <ProductsStyled>
+                {setProducts.map(product => (<Product {...product}/>))}
+            </ProductsStyled>
             <Category />
             <Footer />
         </WelcomeStyled>
@@ -62,5 +64,12 @@ const WelcomeStyled = styled.div`
     width: 100vw;
     height: 100vh;
     background-color: #EADDCA;
+
+`;
+
+const ProductsStyled = styled.div`
+
+    height: 250px;
+    width: 150px;
 
 `;
