@@ -33,9 +33,6 @@ const StoreHeader = styled.div`
     background-color: green;
     /* background-color: #EADDCA; */
 
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-
 `;
 
 const HeaderText = styled.div`

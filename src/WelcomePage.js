@@ -13,13 +13,13 @@ export default function WelcomePage () {
     const [selectedProduct, setSelectedProduct] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(false);
 
-    const config = {
+    /* const config = {
 
         headers: {
             Authorization: `Bearer ${JSON.parse(localStorage.getItem('token_ID'))}`
         }
 
-    };
+    }; */
 
     useEffect (() => {
 
@@ -29,26 +29,47 @@ export default function WelcomePage () {
 
     function getProducts () {
 
-        const promise = axios.get ('http://localhost:5000/welcome-page', config);
+        const promise = axios.get('http://localhost:5000/category-products'/* , config */);
+        
         promise.then (response => {
+
             const {data} = response;
             setProducts(data);
+
         })
-        promise.catch (err => {
-            console.log(err.response);
+        promise.catch ((e) => {
+
+            console.log(e.response);
             alert ('Algo deu errado. Por favor, tente novamente.');
+
         });
 
     }
-    
 
+    function showProducts () {
+
+        return products.map(product => {
+
+            const { _id, name, small_description, price, img} = product;
+
+            return (
+                
+                <>
+                    <Product _id={_id} name={name} small_description={small_description} price={price} img={img}/>
+                </>
+
+            );
+
+        });
+
+    }
 
     return (
 
         <WelcomeStyled>
             <Header />
             <ProductsStyled>
-                {setProducts.map(product => (<Product {...product}/>))}
+                {showProducts()}
             </ProductsStyled>
             <Category />
             <Footer />
@@ -69,7 +90,11 @@ const WelcomeStyled = styled.div`
 
 const ProductsStyled = styled.div`
 
+    margin-top: 150px;
+    margin-left: 15px;
     height: 250px;
-    width: 150px;
+    width: 92vw;
+    background-color: brown;
 
 `;
+
