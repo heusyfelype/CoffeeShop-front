@@ -19,7 +19,7 @@ export default function Login () {
 
         setLoading(true);
 
-        const promise = axios.post('locahost:5000/login', {
+        const promise = axios.post('http://localhost:5000/login', {
             email,
             password
         })
@@ -27,7 +27,8 @@ export default function Login () {
         promise.then (response => {
             setLoading(false);
             const { data } = response;
-            console.log(data);
+            const info = {token: data.token, id: data.userId};
+            const userInfo = localStorage.setItem('token_ID', JSON.stringify(info));
             navigate('/welcome-page');
         })
 
