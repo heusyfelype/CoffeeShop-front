@@ -14,7 +14,7 @@ export default function App () {
                 <Route path='/' element={<Login setToken={(() => {})}/>}/>
                 <Route path='/sign-up' element={<SignUp/>}/>
                 <Route path='/welcome-page' element={<WelcomePage token={''}/>}/>
-                <Route path='/produc-info/:id' element={<ProductInfo token={''}/>}/>
+                <Route path='/product-info/:id' element={<ProductInfo token={''}/>}/>
                 <Route path='/checkout' element={<Checkout token={''}/>}/>
             </Routes>
         </BrowserRouter>
