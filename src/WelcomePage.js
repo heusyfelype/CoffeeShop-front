@@ -90,7 +90,7 @@ const WelcomeStyled = styled.div`
 
 const ProductsStyled = styled.div`
 
-    margin-top: 150px;
+    margin-top: 200px;
     margin-left: 15px;
     height: 250px;
     width: 92vw;

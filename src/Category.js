@@ -1,38 +1,62 @@
 import specials from './components/graos.png';
 import coffeeMachines from './components/cafeteira.png';
 import cup from './components/xicara_1.png';
-import shadow from './components/shadow.png';
+import shadow from './components/shadow_1.png';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useState } from 'react';
 
 export default function Category () {
+
+    const [selectedCategory, setSelectedCategory] = useState(false);
+
+    function getCategory () { //Enviar requisição de GET, baseado no ID da categoria selecionada
+
+        const promise = axios.get('htttp://localhost:5000/category/');
+
+        promise.then(response => {
+
+            const { data } = response;
+            console.log(data);
+
+        });
+
+        promise.catch((e) => {
+
+            console.log(e);
+            alert('Ocorreu um erro! Por favor, selecione novamente a categoria desejada.');
+
+        });
+
+    } 
 
     return (
 
         <CategoryContainer>
-            <CafésEspeciais>
+            <CafésEspeciais onClick={() => {getCategory()}}>
                 <CaféVetor>
                     <img src={specials} height={45} width={45}/>
                 </CaféVetor>
                 <Shadow>
-                    <img src={shadow} height={25} width={55}/>
+                    <img src={shadow} height={10} width={55}/>
                 </Shadow>
                 <CategoryName>Cafés Especiais</CategoryName>
             </CafésEspeciais>
-            <Cafeteiras>
+            <Cafeteiras onClick={() => {getCategory()}}>
                 <CafeteiraVetor>
                     <img src={coffeeMachines} height={45} width={45}/>
                 </CafeteiraVetor>
                 <Shadow>
-                    <img src={shadow} height={25} width={55}/>
+                    <img src={shadow} height={10} width={55}/>
                 </Shadow>
                 <CategoryName>Cafeteiras</CategoryName>
             </Cafeteiras>
-            <XícarasExclusivas>
+            <XícarasExclusivas onClick={() => {getCategory()}}>
                 <XícaraVetor>
                     <img src={cup} height={45} width={45}/>
                 </XícaraVetor>
                 <Shadow>
-                    <img src={shadow} height={25} width={55}/>
+                    <img src={shadow} height={10} width={55}/>
                 </Shadow>
                 <CategoryName>Xícaras Exclusivas</CategoryName>
             </XícarasExclusivas>
@@ -46,7 +70,7 @@ const CategoryContainer = styled.div`
 
     margin-left: auto;
     margin-right: auto;
-    margin-top: 70px;    
+    margin-top: 30px;    
 
     display: flex;
     align-items: center;
@@ -140,7 +164,7 @@ const XícaraVetor = styled.div`
 
 const Shadow = styled.div`
 
-    margin-top: -20px;
+    margin-top: -7px;
 
 `;
 

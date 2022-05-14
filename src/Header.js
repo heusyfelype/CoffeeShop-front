@@ -40,6 +40,7 @@ const HeaderText = styled.div`
     /* margin-top: 15px; */
     display: flex;
     flex-direction: column;
+    font-family: 'Roboto', sans-serif;
     gap: 10px;
 
 `;
