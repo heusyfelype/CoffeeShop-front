@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import styled from 'styled-components';
@@ -10,6 +10,9 @@ export default function ProductInfo() {
     const [qtt, setQtt] = useState(0)
 
     console.log(product)
+
+    let navigate = useNavigate();
+
     useEffect(() => {
         const config = {
             headers: product_id
@@ -46,7 +49,7 @@ export default function ProductInfo() {
                     <p>
                         <ion-icon name="remove-outline" onClick={() => {
                             if (qtt > 0) {
-                               return setQtt(qtt - 1)
+                                return setQtt(qtt - 1)
                             }
                             setQtt(0)
                         }}></ion-icon>
@@ -68,10 +71,12 @@ export default function ProductInfo() {
                 <img src={product.img} />
                 <p> {product.small_description}</p>
                 <button className='insert'>
-                    Inserir no carrinho
+                    {qtt > 0 ? `Inserir ${qtt} no carrinho! ` : "Selecione a quantidade para adicionar ao carrinho!"}
                 </button>
-                <button className='forward'>
-                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                <button className='forward' onClick={() => {navigate("/chart")}}>
+                    {/* <Link to={"/chart"}> */}
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                    {/* </Link> */}
                 </button>
             </FooterStyled>
         </MainStyled>
