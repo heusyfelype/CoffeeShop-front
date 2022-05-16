@@ -140,7 +140,6 @@ const TitleStyled = styled.h1`
 `
 
 const InputStyled = styled.input`
-    width: 100%;
     z-index: 2;
 
     height: 70px;

@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 const Button = styled.div`
 
-    width: 360px;
+    width: 100%;
     height: 70px;
+    min-height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
