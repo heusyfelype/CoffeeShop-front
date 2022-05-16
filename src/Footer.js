@@ -24,6 +24,7 @@ const FooterContainer = styled.div`
     height: 170px;
     width: 100vw;
 
+    font-family: 'Roboto', sans-serif;
     font-size: 25px;
     color: white;
 

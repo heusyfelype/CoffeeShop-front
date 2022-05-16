@@ -2,18 +2,16 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import infoIcon from './components/eye-icon.png';
 
-export default function Product ({ name, description, price, img}) {
+export default function Product ( props ) {
 
     return (
 
         <ProductContainer>
-            <ProductImg>
-                <img src={img} alt={name} height={120} width={80}/>
-            </ProductImg>
-            <ProductDescription>{description}</ProductDescription>
+            <img src={props.img} alt={props.name} height={120} width={80}/>
+            <ProductDescription>{props.small_description}</ProductDescription>
             <ProductFooter>
                 <InfoLink to={'/produc-info'}>{infoIcon}</InfoLink>
-                <ProductPrice>{price}</ProductPrice>
+                <ProductPrice>{props.price}</ProductPrice>
             </ProductFooter>
         </ProductContainer>
 
@@ -21,10 +19,7 @@ export default function Product ({ name, description, price, img}) {
 
 }
 
-const ProductContainer = styled.div`
-
-    margin-left: 15px;
-    margin-top: 170px;    
+const ProductContainer = styled.div`    
 
     height: 250px;
     width: 150px;
@@ -33,13 +28,6 @@ const ProductContainer = styled.div`
     border-radius: 25px;
 
     z-index: 1;
-
-`;
-
-const ProductImg = styled.div`
-
-    height: 120px;
-    width: 80px;
 
 `;
 

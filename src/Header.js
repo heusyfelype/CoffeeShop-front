@@ -33,9 +33,6 @@ const StoreHeader = styled.div`
     background-color: green;
     /* background-color: #EADDCA; */
 
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-
 `;
 
 const HeaderText = styled.div`
@@ -43,6 +40,7 @@ const HeaderText = styled.div`
     /* margin-top: 15px; */
     display: flex;
     flex-direction: column;
+    font-family: 'Roboto', sans-serif;
     gap: 10px;
 
 `;

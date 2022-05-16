@@ -1,3 +1,4 @@
+
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from "axios";
@@ -214,13 +215,6 @@ function ProducsMap(props) {
 }
 
 
-
-
-
-
-
-
-
 const AddressStyled = styled.p`
 
 `
@@ -419,3 +413,4 @@ const InputStyled = styled.input`
     text-align: center;
     font-weight: bold;
 `
+
