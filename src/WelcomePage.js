@@ -13,13 +13,13 @@ export default function WelcomePage () {
     const [selectedProduct, setSelectedProduct] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(false);
 
-    /* const config = {
+    const config = {
 
         headers: {
-            Authorization: `Bearer ${JSON.parse(localStorage.getItem('token_ID'))}`
+            category: "cafés especiais" 
         }
 
-    }; */
+    }; 
 
     useEffect (() => {
 
@@ -29,12 +29,13 @@ export default function WelcomePage () {
 
     function getProducts () {
 
-        const promise = axios.get('http://localhost:5000/category-products'/* , config */);
+        const promise = axios.get('http://localhost:5000/category-products', config );
         
         promise.then (response => {
 
             const {data} = response;
             setProducts(data);
+            console.log(data)
 
         })
         promise.catch ((e) => {
