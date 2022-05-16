@@ -105,6 +105,8 @@ const MainStyled = styled.main`
     width: 100vw;
     height: 100vh;
     padding: 5vh 8%;
+    font-family: 'Roboto', sans-serif;
+
 
     a[name="back"]{
         position: absolute;

@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import LoadingSpin from 'react-loading-spin';
 import axios from 'axios';
-import Background1 from './Background-1';
+
+import Background_1 from './Background-1.js';
 import styled from 'styled-components';
 
 export default function Login () {
@@ -42,7 +43,7 @@ export default function Login () {
     return (
 
         <LoginContainer>
-            <Background1 />
+            <Background_1 />
             <ShopLogo>Coffee Shop</ShopLogo>
             <InputsContainer>
                 <Input type={'text'} placeholder={'Email'} value={email} onChange={(e) => setEmail(e.target.value)}/>
@@ -76,8 +77,8 @@ const LoginContainer = styled.div`
 
 const StyledLink = styled(Link)`
 
-    height: 15px;
-    width: 340px;
+    height: 30px;
+    width: 100%;
     padding: 25px;
     display: flex;
     justify-content: center;
@@ -86,7 +87,7 @@ const StyledLink = styled(Link)`
     font-family: 'Roboto', sans-serif;
     text-decoration: none;
     color: #EADDCA;
-    z-index: 1;
+    z-index: 2;
 
 `;
 
@@ -96,13 +97,13 @@ const ShopLogo = styled.div`
     font-weight: 700;
     font-size: 40px;
     color: #EADDCA;
-    z-index: 1;
+    z-index: 2;
 `;
 
 const InputsContainer = styled.div`
 
     margin-top: 40vh;
     background-color: transparent;
-    z-index: 1;
+    z-index: 2;
 
 `;

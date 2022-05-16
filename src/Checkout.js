@@ -2,6 +2,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import styled from 'styled-components';
+import { Icon } from '@iconify/react';
 
 
 export default function Checkout() {
@@ -32,17 +33,25 @@ export default function Checkout() {
         request.catch(response => alert(response))
     }, [])
 
-    // if(productsInCart.length > 0){
-    //     useEffect(() =>{
-    //         let soma = 0
-    //         for(const each of productsInCart){
-    //             soma += productsInCart.priceCart
-    //         }
-    //         setTotal(soma)
-    //     }, [])
-    // }
 
+    const [userData, setUserData] = useState({});
+    const [validAddress, setValidAddress] = useState(false)
 
+    function requestCep(cep) {
+        console.log(cep)
+        const promise = axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+        promise.then(reponse => {
+            let { data } = reponse;
+            setUserData(userData.cep = cep)
+            setUserData({ ...userData, ...data })
+            setValidAddress(true)
+        })
+        promise.catch((e) => {
+            setValidAddress(false)
+            alert("Cep inválido");
+            setUserData({ ...userData, cep: "" })
+        })
+    }
 
     return (
         <>
@@ -63,13 +72,72 @@ export default function Checkout() {
                         <ProducsMap productsInCart={productsInCart} setProducsInCart={setProducsInCart} />
                     }
 
+                    <form>
+                        <InputStyled
+                            type="text"
+                            placeholder=' Quem irá receber a mercadoria?'
+                            name="name"
+                            value={userData.name}
+                            onChange={e => { setUserData({ ...userData, name: e.target.value }) }}
+                        />
+                        <InputStyled
+                            type="text"
+                            placeholder=' CEP (Apenas números)'
+                            name="CEP"
+                            value={userData.cep}
+                            onChange={e => {
+                                e.target.value.length !== 8 ?
+                                    setUserData({ ...userData, cep: e.target.value }) :
+                                    requestCep(e.target.value)
+                            }
+                            }
+                        />
+                        <AddressStyled>
+                            {validAddress ?
+                                <>
+                                    {userData.logradouro}
+                                    <br />
+                                    {userData.bairro}
+                                    <br />
+                                    {userData.localidade}
+                                    <br />
+                                    {userData.uf}
+                                    <br />
 
+                                </> :
+                                "Não tem address"
+
+
+
+                            }
+                        </AddressStyled>
+
+                        <InputStyled
+                            type="number"
+                            placeholder=' Número'
+                            name="number"
+                            value={userData.number}
+                            onChange={e => {
+                                setUserData({ ...userData, number: e.target.value })
+                            }
+                            }
+                        />
+                        <TextArea
+                            placeholder=' Alguma observação?'
+                            name="Obs"
+                            value={userData.obs}
+                            onChange={e => {
+                                setUserData({ ...userData, obs: e.target.value })
+                            }
+                            }
+                        />
+                    </form>
 
                 </ContentsStyled>
 
                 <FooterStyled>
                     <p>
-                        Total R$ {productsInCart[1].total.toFixed(2)}
+                        <Icon icon="bx:cart-alt" color="#f3ebe4" inline={true} /> Total <br /> R$ {productsInCart[1].total.toFixed(2).replace(".", ",")}
                     </p>
                     <button >
                         Finalizar compra
@@ -131,7 +199,7 @@ function ProducsMap(props) {
                     <ProductStyled key={eachProduct._id}>
                         <img src={eachProduct.img} />
                         <h6> {eachProduct.small_description} </h6>
-                        <h5> {eachProduct.qtt} X {eachProduct.price.toFixed(2).replace(".", ",")} </h5>
+                        <h5> {eachProduct.qtt} X R$ {eachProduct.price.toFixed(2).replace(".", ",")} </h5>
                         <div>
 
                             <ion-icon name="remove-outline" onClick={() => refreshQtt(eachProduct, 'remove')}></ion-icon>
@@ -153,9 +221,24 @@ function ProducsMap(props) {
 
 
 
+const AddressStyled = styled.p`
 
+`
 
+const TextArea = styled.textarea`
+    z-index: 2;
 
+    height: 200px;
+    width: 100%;
+    border: none;
+    border-radius: 15px;
+    background-color: #EADDCA;
+    color: #7b716aff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+`
 
 
 
@@ -163,9 +246,10 @@ const ProductStyled = styled.div`
 
     display: grid;
     grid-template-columns: 3fr 5fr;
+    grid-template-rows: minmax(50, 80px) 40px;
     justify-items: center;
     align-items: center;
-    gap: 1%;
+    gap: 3px;
 
     position: relative;
 
@@ -176,6 +260,8 @@ const ProductStyled = styled.div`
 
     padding: 15px;
     margin-top: 40px;
+
+    /* font-family: 'Roboto', sans-serif; */
 
     img{
         grid-column-start: 1;
@@ -189,7 +275,8 @@ const ProductStyled = styled.div`
     h6{
         grid-column-start: 2;
         grid-column-end: 3;
-        overflow-y: scroll;
+        overflow: scroll;
+        max-height: 75px;
     }
     div{
 
@@ -222,6 +309,7 @@ const MainStyled = styled.main`
     padding: 15vh 8% ;
     margin-bottom: 30vh;
     overflow-y: scroll;
+    font-family: 'Roboto', sans-serif;
 
 `
 const HeaderStyled = styled.div`
@@ -283,7 +371,8 @@ const FooterStyled = styled.footer`
     justify-content: center;
     align-items: center;
 
-    
+    font-family: 'Roboto', sans-serif;
+
     
 
     p{
@@ -294,6 +383,14 @@ const FooterStyled = styled.footer`
         color: #f3ebe4;
         max-height: 100% ;
         overflow: hidden;
+        font-size: 24px;
+        position: absolute ;
+        left: 0;
+        
+    }
+
+    br{
+        margin: 20px;
     }
 
     button{
@@ -306,4 +403,19 @@ const FooterStyled = styled.footer`
     }
 
     
+`
+
+const InputStyled = styled.input`
+    z-index: 2;
+
+    height: 70px;
+    width: 100%;
+    border: none;
+    border-radius: 100px;
+    background-color: #EADDCA;
+    color: #7b716aff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
 `
