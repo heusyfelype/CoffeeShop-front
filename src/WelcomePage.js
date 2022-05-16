@@ -92,10 +92,16 @@ const WelcomeStyled = styled.div`
 const ProductsStyled = styled.div`
 
     margin-top: 200px;
-    margin-left: 15px;
+    margin-left: 20px;   
+
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
     height: 250px;
     width: 92vw;
-    background-color: brown;
+
+    overflow-y: scroll;
 
 `;
 

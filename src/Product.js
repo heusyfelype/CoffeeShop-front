@@ -1,17 +1,17 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import infoIcon from './components/eye-icon.png';
 
 export default function Product ( props ) {
 
     return (
 
         <ProductContainer>
-            <img src={props.img} alt={props.name} height={120} width={80}/>
+            <ProductImage>
+                <img src={props.img} alt={props.name} height={180} width={180}/>
+            </ProductImage>
             <ProductDescription>{props.small_description}</ProductDescription>
             <ProductFooter>
-                <InfoLink to={'/produc-info'}>{infoIcon}</InfoLink>
-                <ProductPrice>{props.price}</ProductPrice>
+                <Info>ⓘ</Info> 
+                <ProductPrice>R${props.price}0</ProductPrice>
             </ProductFooter>
         </ProductContainer>
 
@@ -24,22 +24,37 @@ const ProductContainer = styled.div`
     height: 250px;
     width: 150px;
 
-    background-color: blue;
-    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
 
-    z-index: 1;
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    overflow: visible;
+
+`;
+
+const ProductImage = styled.div`
+
+    margin-top: -10px;
+    margin-left: -15px;
+    z-index: 2;
 
 `;
 
 const ProductDescription = styled.div`
 
+    padding-left: 5px;
+    padding-right: px;
+    max-height: 27px;
     font-size: 12px;
     color: grey;
+    overflow-x: scroll;
 
 `;
 
 const ProductFooter = styled.div`
-
+    
+    margin-top: 25px;
     height: 15px;
     width: 150px;
 
@@ -47,14 +62,16 @@ const ProductFooter = styled.div`
 
 const ProductPrice = styled.div`
 
-    font-size: 12px;
-    color: black;
+    margin-left: 55px;
+    margin-top: -20px;
+    font-size: 22px;
+    color: #adadad;
 
 `;
 
-const InfoLink = styled(Link)`
+const Info = styled.div`
 
-    height: 7px;
-    width: 7px;
+    margin-left: 15px;
+    color: #adadad;
 
 `;

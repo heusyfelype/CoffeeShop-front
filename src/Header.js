@@ -30,8 +30,7 @@ const StoreHeader = styled.div`
 
     height: 110px;
     width: 100vw;
-    background-color: green;
-    /* background-color: #EADDCA; */
+    background-color: #EADDCA; 
 
 `;
 
@@ -56,15 +55,15 @@ const HeaderTitle = styled.div`
 
 const HeaderMessage = styled.div`
 
-    /* font-family: ; */
+    font-family: 'Roboto', sans-serif;
     font-size: 15px;
-    color: #EDC9AF;
+    color: grey;
 
 `;
 
 const ProfilePic = styled.div`
 
-    /* margin-top: 15px; */
+    margin-top: -15px;
     height: 45px;
     width: 45px;
     border-radius: 100%;
