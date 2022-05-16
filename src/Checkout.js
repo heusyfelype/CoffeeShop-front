@@ -8,6 +8,8 @@ import { Icon } from '@iconify/react';
 
 export default function Checkout() {
     const navigate = useNavigate()
+    const token_ID = JSON.parse(localStorage.getItem('token_ID'));
+
 
     const [productsInCart, setProducsInCart] = useState([[], { total: 0.00 }])
 
@@ -16,7 +18,7 @@ export default function Checkout() {
 
     useEffect(() => {
         const config = {
-            headers: { userId: "UmId" }
+            headers: { userId: token_ID.id }
         }
         const request = axios.get("http://localhost:5000/cart", config)
 
@@ -73,13 +75,14 @@ export default function Checkout() {
                         <ProducsMap productsInCart={productsInCart} setProducsInCart={setProducsInCart} />
                     }
 
-                    <form>
+                    <FormStyled >
                         <InputStyled
                             type="text"
                             placeholder=' Quem irá receber a mercadoria?'
                             name="name"
                             value={userData.name}
                             onChange={e => { setUserData({ ...userData, name: e.target.value }) }}
+                            required
                         />
                         <InputStyled
                             type="text"
@@ -87,15 +90,15 @@ export default function Checkout() {
                             name="CEP"
                             value={userData.cep}
                             onChange={e => {
-                                e.target.value.length !== 8 ?
+                                e.target.value.length < 8 ?
                                     setUserData({ ...userData, cep: e.target.value }) :
                                     requestCep(e.target.value)
                             }
                             }
                         />
-                        <AddressStyled>
+                        <AddressStyled >
                             {validAddress ?
-                                <>
+                                <p>
                                     {userData.logradouro}
                                     <br />
                                     {userData.bairro}
@@ -105,8 +108,10 @@ export default function Checkout() {
                                     {userData.uf}
                                     <br />
 
-                                </> :
-                                "Não tem address"
+                                </p> :
+                                <p>
+                                    Informe seu CEP acima!
+                                </p>
 
 
 
@@ -132,7 +137,12 @@ export default function Checkout() {
                             }
                             }
                         />
-                    </form>
+                    </FormStyled>
+
+                    <AtentionStyled>
+                        <h6> <Icon icon="icon-park-outline:attention" inline={true} /> Atenção </h6>
+                        <p> Por enquanto estamos aceitando apenas o pagamento no momento da retirada do produto! <br/><br/> Agradecemos a compreensão! </p>
+                    </AtentionStyled>
 
                 </ContentsStyled>
 
@@ -140,7 +150,22 @@ export default function Checkout() {
                     <p>
                         <Icon icon="bx:cart-alt" color="#f3ebe4" inline={true} /> Total <br /> R$ {productsInCart[1].total.toFixed(2).replace(".", ",")}
                     </p>
-                    <button >
+                    <button onClick={() => {
+                        console.log(productsInCart[1] = {
+                            total : productsInCart[1].total,
+                            ...userData,
+                            userId : token_ID.id
+                        })
+                        const promise = axios.post("http://localhost:5000/purchase", productsInCart)
+                        promise.then(response =>{
+                            alert("Compra efetuada!")
+                            navigate("/welcome-page")
+                        })
+                        promise.catch(e =>{
+                            alert("Não foi possível efetuar a compra, tente novamente!")
+
+                        })
+                    }}>
                         Finalizar compra
                     </button>
                     <button className='forward' onClick={() => { navigate("/welcome-page") }}>
@@ -157,13 +182,17 @@ export default function Checkout() {
 
 
 
+
+
 function ProducsMap(props) {
     const { productsInCart, setProducsInCart } = props;
+    const token_ID = JSON.parse(localStorage.getItem('token_ID'));
+
 
     function refreshQtt(product, action) {
 
         const productObject = {
-            "userId": "UmId",
+            "userId": token_ID.id,
             "productId": product.productId,
             "action": action,
             "qtt": 1
@@ -171,7 +200,7 @@ function ProducsMap(props) {
         const promise = axios.post("http://localhost:5000/cart", productObject)
         promise.then(() => {
             const config = {
-                headers: { userId: "UmId" }
+                headers: { userId: token_ID.id }
             }
             const request = axios.get("http://localhost:5000/cart", config)
 
@@ -215,12 +244,40 @@ function ProducsMap(props) {
 }
 
 
+const AtentionStyled = styled.div`
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 70px;
+    width: 100%;
+    padding: 10px 10px;
+    border-radius: 15px;
+    border: 2px solid #7b716a;
+`
+
+const FormStyled = styled.form`
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    z-index: 1;
+`
+
 const AddressStyled = styled.p`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 70px;
+    width: 100%;
+    padding: 10px 10px;
+    border-radius: 15px;
+    border: 2px solid #7b716a;
 
 `
 
 const TextArea = styled.textarea`
-    z-index: 2;
+    z-index: 1;
 
     height: 200px;
     width: 100%;
@@ -318,7 +375,7 @@ const HeaderStyled = styled.div`
     top: 0px;
     left: 0px;
     padding: 20px;
-    z-index: 1;
+    z-index: 2;
     
     box-shadow: 0px 20px 30px -30px rgba(0, 0, 0, 0.5);
     
@@ -367,7 +424,7 @@ const FooterStyled = styled.footer`
 
     font-family: 'Roboto', sans-serif;
 
-    
+    z-index: 2;
 
     p{
         grid-column-start: 2;
@@ -400,12 +457,12 @@ const FooterStyled = styled.footer`
 `
 
 const InputStyled = styled.input`
-    z-index: 2;
+    z-index: 1;
 
     height: 70px;
     width: 100%;
     border: none;
-    border-radius: 100px;
+    border-radius: 15px;
     background-color: #EADDCA;
     color: #7b716aff;
     font-family: 'Roboto', sans-serif;

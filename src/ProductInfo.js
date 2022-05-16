@@ -7,7 +7,7 @@ export default function ProductInfo() {
     const product_id = { product_id: useParams().id }
 
     const token_ID = JSON.parse(localStorage.getItem('token_ID'));
-    console.log(token_ID)
+    console.log(token_ID.id)
 
     const [product, setProduct] = useState({})
     const [qtt, setQtt] = useState(0)
