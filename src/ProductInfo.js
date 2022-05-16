@@ -9,8 +9,6 @@ export default function ProductInfo() {
     const [product, setProduct] = useState({})
     const [qtt, setQtt] = useState(0)
 
-    console.log(product)
-
     let navigate = useNavigate();
 
     useEffect(() => {
@@ -26,6 +24,25 @@ export default function ProductInfo() {
     }, [])
 
     let test = JSON.stringify(product)
+
+
+    function insertToCart(){
+        let produtToInsert = {
+            "userId": "UmId",
+            "productId": product_id.product_id,
+            "action": "add",
+            "qtt": qtt
+        }
+        console.log(produtToInsert)
+        const request = axios.post("http://localhost:5000/cart", produtToInsert)
+        request.then(() => {
+            alert(`Foram adicionadas ${qtt} unidades deste produto ao carrinho!`);
+            setQtt(0);
+        })
+        request.catch(response => alert(response));
+    }
+
+
 
     return (test === "{}" ? "" :
 
@@ -70,13 +87,11 @@ export default function ProductInfo() {
             <FooterStyled>
                 <img src={product.img} />
                 <p> {product.small_description}</p>
-                <button className='insert'>
+                <button className='insert' onClick={insertToCart}>
                     {qtt > 0 ? `Inserir ${qtt} no carrinho! ` : "Selecione a quantidade para adicionar ao carrinho!"}
                 </button>
-                <button className='forward' onClick={() => {navigate("/chart")}}>
-                    {/* <Link to={"/chart"}> */}
+                <button className='forward' onClick={() => {navigate("/cart")}}>
                         <ion-icon name="chevron-forward-outline"></ion-icon>
-                    {/* </Link> */}
                 </button>
             </FooterStyled>
         </MainStyled>
