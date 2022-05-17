@@ -6,6 +6,7 @@ import Product from './Product';
 import Category from './Category';
 import styled from 'styled-components';
 import axios from 'axios';
+import api from './api';
 
 export default function WelcomePage () {
 
@@ -29,7 +30,7 @@ export default function WelcomePage () {
 
     function getProducts () {
 
-        const promise = axios.get('http://localhost:5000/category-products', config );
+        const promise = api.get('/category-products', config);
         
         promise.then (response => {
 

@@ -2,6 +2,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import styled from 'styled-components';
+import api from './api';
 
 export default function ProductInfo() {
     const product_id = { product_id: useParams().id }
@@ -18,7 +19,7 @@ export default function ProductInfo() {
         const config = {
             headers: product_id
         }
-        const request = axios.get("http://localhost:5000/product", config)
+        const request = api.get('/product', config);
         request.then(response => {
             const { data } = response;
             setProduct({ ...data })

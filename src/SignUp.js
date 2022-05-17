@@ -2,6 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
+import api from './api';
 
 import img from './components/background-signup.jpg'
 
@@ -13,7 +14,7 @@ export default function SignUp() {
 
     function sendNewUser(e){
         e.preventDefault();
-        const request = axios.post("http://localhost:5000/sign-up", signUpData);
+        const request = api.post('/sign-up', signUpData);
 
         request.then((response) => {
             alert("Cadastro feito com sucesso!")

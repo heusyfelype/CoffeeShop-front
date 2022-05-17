@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import api from './api';
 
 function Modal ({ price, address, buyer }) { //Dados recebidos da tela de confirmação de pedido
 
@@ -10,7 +11,7 @@ function Modal ({ price, address, buyer }) { //Dados recebidos da tela de confir
 
     function sendOrder () { //Enviar os dados do pedido pro back
 
-        const promise = axios.post('http://localhost:5000/', order);
+        const promise = api.post('/', order);
 
         promise.then(response => {
 

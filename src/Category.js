@@ -5,6 +5,7 @@ import shadow from './components/shadow_1.png';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useState } from 'react';
+import api from './api';
 
 export default function Category () {
 
@@ -20,7 +21,7 @@ export default function Category () {
 
     function getCategory () { 
 
-        const promise = axios.get('htttp://localhost:5000/category/', config);
+        const promise = api.get('/category', config);
 
         promise.then(response => {
 

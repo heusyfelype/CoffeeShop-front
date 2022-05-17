@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import styled from 'styled-components';
 import { Icon } from '@iconify/react';
+import api from './api';
 
 
 export default function Checkout() {
@@ -20,7 +21,7 @@ export default function Checkout() {
         const config = {
             headers: { userId: token_ID.id }
         }
-        const request = axios.get("http://localhost:5000/cart", config)
+        const request = api.get('/cart', config);
 
         request.then(response => {
             const { data } = response;
@@ -156,7 +157,7 @@ export default function Checkout() {
                             ...userData,
                             userId : token_ID.id
                         })
-                        const promise = axios.post("http://localhost:5000/purchase", productsInCart)
+                        const promise = api.post('/purchase', productsInCart);
                         promise.then(response =>{
                             alert("Compra efetuada!")
                             navigate("/welcome-page")
@@ -197,12 +198,12 @@ function ProducsMap(props) {
             "action": action,
             "qtt": 1
         }
-        const promise = axios.post("http://localhost:5000/cart", productObject)
+        const promise = api.post('/cart', productObject);
         promise.then(() => {
             const config = {
                 headers: { userId: token_ID.id }
             }
-            const request = axios.get("http://localhost:5000/cart", config)
+            const request = api.get('/cart', config);
 
             request.then(response => {
                 const { data } = response;

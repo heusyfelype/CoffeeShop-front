@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import LoadingSpin from 'react-loading-spin';
 import axios from 'axios';
+import api from './api';
 
 import Background_1 from './Background-1.js';
 import styled from 'styled-components';
@@ -20,7 +21,7 @@ export default function Login () {
 
         setLoading(true);
 
-        const promise = axios.post('http://localhost:5000/login', {
+        const promise = api.post('/login', {
             email,
             password
         })
