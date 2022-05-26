@@ -33,10 +33,9 @@ export default function WelcomePage () {
         const promise = api.get('/category-products', config);
         
         promise.then (response => {
-
+            console.log(response)
             const {data} = response;
-            setProducts(data);
-            console.log(data)
+            setProducts([data].flat());
 
         })
         promise.catch ((e) => {
@@ -50,7 +49,7 @@ export default function WelcomePage () {
 
     function showProducts () {
 
-        return products.map(product => {
+        return products.map((product) => {
 
             const { _id, name, small_description, price, img, category} = product;
 
