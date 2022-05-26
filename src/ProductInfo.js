@@ -38,7 +38,7 @@ export default function ProductInfo() {
             "qtt": qtt
         }
         // console.log(produtToInsert)
-        const request = axios.post("/cart", produtToInsert)
+        const request = api.post("/cart", produtToInsert)
         request.then(() => {
             alert(`Foram adicionadas ${qtt} unidades deste produto ao carrinho!`);
             setQtt(0);
