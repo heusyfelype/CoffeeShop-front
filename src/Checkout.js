@@ -58,10 +58,9 @@ export default function Checkout() {
     }
 
     return (
-        <>
+        
 
             <MainStyled>
-                <ContentsStyled>
                     <HeaderStyled>
                         <h6> Antes de finalizarmos,
                             por favor confira
@@ -70,6 +69,7 @@ export default function Checkout() {
                         <img src='https://static.vecteezy.com/ti/vetor-gratis/p1/2002247-icone-de-avatar-de-mulher-negra-bonita-gr%C3%A1tis-vetor.jpg' />
 
                     </HeaderStyled>
+                {/* <ContentsStyled> */}
 
                     {productsInCart[0].length === 0 ?
                         "Adicione algum produto ao carrinho" :
@@ -145,7 +145,7 @@ export default function Checkout() {
                         <p> Por enquanto estamos aceitando apenas o pagamento no momento da retirada do produto! <br/><br/> Agradecemos a compreensão! </p>
                     </AtentionStyled>
 
-                </ContentsStyled>
+                {/* </ContentsStyled> */}
 
                 <FooterStyled>
                     <p>
@@ -176,7 +176,7 @@ export default function Checkout() {
             </MainStyled>
 
 
-        </>
+        
     );
 
 }
@@ -358,8 +358,8 @@ const MainStyled = styled.main`
     background-color: #f3ebe4;
     width: 100vw;
     height: 100vh;
-    padding: 15vh 8% ;
-    margin-bottom: 30vh;
+    padding: 12.5vh 8% 22.5vh 8%;
+    //margin-bottom: 30vh;
     overflow-y: scroll;
     font-family: 'Roboto', sans-serif;
 
@@ -398,10 +398,12 @@ const HeaderStyled = styled.div`
     }
 `
 
-const ContentsStyled = styled.div`
-height: 100vh;
-margin-bottom: 30vh;
-`
+// const ContentsStyled = styled.div`
+//     /* width: 100%;
+//     //height: fit-content;
+//     margin-bottom: 30vh;
+//     background-color: blue; */
+// `
 
 const FooterStyled = styled.footer`
     height: 20vh;

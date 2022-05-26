@@ -1,10 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+
 export default function Product ( props ) {
+    let navigate = useNavigate();
 
     return (
 
-        <ProductContainer>
+        <ProductContainer onClick={() =>{navigate(`/product-info/${props._id}`)}}>
             <ProductImage>
                 <img src={props.img} alt={props.name} height={180} width={180}/>
             </ProductImage>
