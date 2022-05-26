@@ -8,7 +8,7 @@ export default function ProductInfo() {
     const product_id = { product_id: useParams().id }
 
     const token_ID = JSON.parse(localStorage.getItem('token_ID'));
-    console.log(token_ID.id)
+    //console.log(token_ID.id)
 
     const [product, setProduct] = useState({})
     const [qtt, setQtt] = useState(0)
@@ -38,7 +38,7 @@ export default function ProductInfo() {
             "qtt": qtt
         }
         // console.log(produtToInsert)
-        const request = axios.post("http://localhost:5000/cart", produtToInsert)
+        const request = axios.post("/cart", produtToInsert)
         request.then(() => {
             alert(`Foram adicionadas ${qtt} unidades deste produto ao carrinho!`);
             setQtt(0);
