@@ -7,26 +7,31 @@ import axios from 'axios';
 import { useState } from 'react';
 import api from './api';
 
-export default function Category () {
+export default function Category (props) {
+
+    const {setProducts} = props;
 
     const [selectedCategory, setSelectedCategory] = useState('');
 
-    const config = {
+    
 
-        headers: {
-            category: selectedCategory 
-        }
+    function getCategory (category) { 
 
-    };
+        const config = {
 
-    function getCategory () { 
+            headers: {
+                category: category 
+            }
+    
+        };
 
-        const promise = api.get('/category', config);
+        const promise = api.get('/category-products', config);
 
         promise.then(response => {
 
             const { data } = response;
             console.log(data);
+            setProducts(data)
 
         });
 
@@ -44,7 +49,7 @@ export default function Category () {
         <CategoryContainer>
             <CafésEspeciais onClick={() => {
                 setSelectedCategory('cafés especiais');
-                getCategory();
+                getCategory('cafés especiais');
                 }}>
                 {/* <BackChange></BackChange> */}
                 <CaféVetor>
@@ -57,7 +62,7 @@ export default function Category () {
             </CafésEspeciais>
             <Cafeteiras onClick={() => {
                 setSelectedCategory('cafeteiras');
-                getCategory();
+                getCategory('cafeteiras');
                 }}>
                 {/* <BackChange></BackChange> */}
                 <CafeteiraVetor>
@@ -70,7 +75,7 @@ export default function Category () {
             </Cafeteiras>
             <XícarasExclusivas onClick={() => {
                 setSelectedCategory('xícaras exclusivas');
-                getCategory();
+                getCategory('xícaras exclusivas');
                 }}>
                 {/* <BackChange></BackChange> */}
                 <XícaraVetor>

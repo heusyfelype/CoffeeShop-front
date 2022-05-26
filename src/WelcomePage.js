@@ -11,7 +11,7 @@ import api from './api';
 export default function WelcomePage () {
 
     const [products, setProducts] = useState([]);
-    const [selectedProduct, setSelectedProduct] = useState(false);
+    //const [selectedProduct, setSelectedProduct] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(false);
 
     const config = {
@@ -52,12 +52,18 @@ export default function WelcomePage () {
 
         return products.map(product => {
 
-            const { _id, name, small_description, price, img} = product;
+            const { _id, name, small_description, price, img, category} = product;
 
             return (
                 
                 <>
-                    <Product _id={_id} name={name} small_description={small_description} price={price} img={img}/>
+                    <Product 
+                    _id={_id} 
+                    name={name} 
+                    small_description={small_description} 
+                    price={price} 
+                    img={img}    
+                    />
                 </>
 
             );
@@ -70,10 +76,10 @@ export default function WelcomePage () {
 
         <WelcomeStyled>
             <Header />
-            <ProductsStyled>
+            <ProductsStyled >
                 {showProducts()}
             </ProductsStyled>
-            <Category />
+            <Category setProducts={setProducts}/>
             <Footer />
         </WelcomeStyled>
 
